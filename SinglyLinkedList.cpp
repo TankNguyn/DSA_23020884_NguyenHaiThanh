@@ -2,6 +2,6 @@
 
 using namespace std;
 
-struct DLL{
+struct SLL{
 
 };
