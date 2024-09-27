@@ -169,7 +169,7 @@ int main()
     a.addFirst(1);
     a.addLast(2);
     a.addMid(1, 3);
-    a.GetNode(2);
+    cout << a.GetNode(2) <<" ";
     a.BrowseFw();
     a.removeMid(2);
     a.removeFirst();
