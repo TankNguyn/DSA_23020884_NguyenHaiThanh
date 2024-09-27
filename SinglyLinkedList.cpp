@@ -24,6 +24,7 @@ struct SLL
     // truy xuất node ở vị trí i
     int GetNode(int i)
     {
+        if(head == 0) return -1;
         point r = head;
         for (int j = 0; j < i; j++)
         {
