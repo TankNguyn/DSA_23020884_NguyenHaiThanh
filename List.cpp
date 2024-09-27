@@ -96,7 +96,7 @@ struct List{
             cout << arr[i] <<" ";
         }
         cout << endl;
-    }
+    }//độ phức tạp: O(n)
 };
 
 int main(){
