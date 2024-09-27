@@ -24,7 +24,8 @@ struct SLL
     // truy xuất node ở vị trí i
     int GetNode(int i)
     {
-        if(head == 0) return -1;
+        if (head == 0)
+            return -1;
         point r = head;
         for (int j = 0; j < i; j++)
         {
@@ -71,6 +72,8 @@ struct SLL
             for (int j = 0; j < i; j++)
             {
                 r = r->next;
+                if (r->next == NULL)
+                    return;
             }
             p->next = r->next;
             r->next = p;
@@ -148,21 +151,24 @@ struct SLL
     {
         if (head == NULL)
             return;
-        else{
+        else
+        {
             point r = head;
-            while(r->next != NULL){
-                cout << r->data <<" ";
+            while (r->next != NULL)
+            {
+                cout << r->data << " ";
                 r = r->next;
             }
         }
-    }//độ phức tạp: O(n)
+    } // độ phức tạp: O(n)
 };
 
-int main(){
+int main()
+{
     SLL a;
     a.addFirst(1);
     a.addLast(2);
-    a.addMid(1,3);
+    a.addMid(1, 3);
     a.GetNode(2);
     a.BrowseFw();
     a.removeMid(2);

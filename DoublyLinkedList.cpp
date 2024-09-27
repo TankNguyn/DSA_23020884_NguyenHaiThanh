@@ -29,6 +29,42 @@ struct DLL{
 
     //Chèn node vào đầu danh sách
     void addFirst(int x){
-        
-    }
+        point p = new Node(x);
+        if(head == NULL) head = tail = p;    
+        else{
+            p->next = head;
+            head->prep = p;
+            head = p;
+        }
+    }//độ phức tạp: O(1)
+
+    //Chèn node vào cuối danh sách
+    void addLast(int x){
+        point p = new Node(x);
+        if(head == NULL) head = tail = p;
+        else{
+            p->prep = tail;
+            tail->next = p;
+            tail = p;
+        }
+    }//độ phức tạp: O(1)
+
+    //Chèn node sau vị trí i
+    void addMid(int i, int x){
+        point p = new Node(x);
+        point r = head;
+        if(head == NULL) head = tail = p;
+        for(int j=0; j<i; j++){
+            r = r->next;
+            if(r->next == NULL) return;
+        }
+        p->next = r->next;
+        p->prep = r;
+        r->next = p;
+    }//độ phức tạp: O(n)
+
+    //Xóa node ở đầu danh sách
+    
+
+
 };
