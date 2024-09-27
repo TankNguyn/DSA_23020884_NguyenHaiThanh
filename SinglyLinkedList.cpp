@@ -159,6 +159,7 @@ struct SLL
                 cout << r->data << " ";
                 r = r->next;
             }
+            cout << endl;
         }
     } // độ phức tạp: O(n)
 };
