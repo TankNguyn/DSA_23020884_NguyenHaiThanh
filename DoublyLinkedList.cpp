@@ -6,9 +6,9 @@ struct Node
 {
     int data;
     Node *next;
-    Node *prep;
+    Node *prev;
 
-    Node(int val) : data(val), next(NULL), prep(NULL) {};
+    Node(int val) : data(val), next(NULL), prev(NULL) {};
 };
 
 typedef struct Node *point;
@@ -41,7 +41,7 @@ struct DLL
         else
         {
             p->next = head;
-            head->prep = p;
+            head->prev = p;
             head = p;
         }
     } // độ phức tạp: O(1)
@@ -54,7 +54,7 @@ struct DLL
             head = tail = p;
         else
         {
-            p->prep = tail;
+            p->prev = tail;
             tail->next = p;
             tail = p;
         }
@@ -74,7 +74,7 @@ struct DLL
                 return;
         }
         p->next = r->next;
-        p->prep = r;
+        p->prev = r;
         r->next = p;
     } // độ phức tạp: O(n)
 
@@ -91,7 +91,7 @@ struct DLL
         else
         {
             head = head->next;
-            head->prep = NULL;
+            head->prev = NULL;
         }
     } // độ phức tạp: O(1)
 
@@ -107,7 +107,7 @@ struct DLL
         }
         else
         {
-            tail = tail->prep;
+            tail = tail->prev;
             tail->next = NULL;
         }
     } // độ phức tạp: O(1)
@@ -134,7 +134,7 @@ struct DLL
                     return;
             }
             r->next = p->next;
-            (p->next)->prep = r;
+            (p->next)->prev = r;
             delete (p);
         }
     } // độ phức tạp: O(n)
@@ -159,10 +159,10 @@ struct DLL
         if (head == NULL)
             return;
         point p = tail;
-        while (p->prep != NULL)
+        while (p->prev != NULL)
         {
             cout << p->data << " ";
-            p = p->prep;
+            p = p->prev;
         }
         cout << endl;
     } // độ phức tạp: O(n)
