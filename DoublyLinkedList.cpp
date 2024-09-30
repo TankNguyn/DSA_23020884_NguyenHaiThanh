@@ -88,8 +88,7 @@ struct DLL
             free(head);
             head = tail = NULL;
         }
-        else
-        {
+        else{
             head = head->next;
             head->prev = NULL;
         }
