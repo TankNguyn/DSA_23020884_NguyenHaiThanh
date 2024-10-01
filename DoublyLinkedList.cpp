@@ -28,6 +28,8 @@ struct DLL
         for (int j = 0; j < i; j++)
         {
             p = p->next;
+            if (p == NULL && j != i - 1)
+                return -1;
         }
         return p->data;
     } // độ phức tạp: O(n)
@@ -65,12 +67,14 @@ struct DLL
     {
         point p = new Node(x);
         point r = head;
+        if (i < 0)
+            return;
         if (head == NULL)
             head = tail = p;
         for (int j = 0; j < i; j++)
         {
             r = r->next;
-            if (r->next == NULL)
+            if (r == NULL)
                 return;
         }
         p->next = r->next;
@@ -115,7 +119,7 @@ struct DLL
     // Xóa node ở vị trí i
     void removeMid(int i)
     {
-        if (head == NULL)
+        if (head == NULL || i < 0)
             return;
         if (head->next == NULL)
         {
@@ -130,7 +134,7 @@ struct DLL
             {
                 r = p;
                 p = p->next;
-                if (p->next == NULL)
+                if (p == NULL)
                     return;
             }
             r->next = p->next;
@@ -174,7 +178,7 @@ int main()
     a.addFirst(1);
     a.addLast(2);
     a.addMid(1, 3);
-    cout << a.GetNode(2) << endl;
+    cout << a.GetNode(1) << endl;
     a.BrowseFw();
     a.BrowseRv();
     a.removeMid(2);

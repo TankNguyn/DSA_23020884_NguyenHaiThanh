@@ -30,6 +30,8 @@ struct SLL
         for (int j = 0; j < i; j++)
         {
             r = r->next;
+            if (r == NULL & j != i - 1)
+                return -1;
         }
         return r->data;
     } // độ phức tạp O(n)
@@ -63,6 +65,8 @@ struct SLL
     // chèn node vào sau vị trí i
     void addMid(int i, int y)
     {
+        if (i < 0)
+            return;
         point p = new Node(y);
         if (head == NULL)
             head = tail = p;
@@ -72,7 +76,7 @@ struct SLL
             for (int j = 0; j < i; j++)
             {
                 r = r->next;
-                if (r->next == NULL)
+                if (r == NULL)
                     return;
             }
             p->next = r->next;
@@ -123,6 +127,8 @@ struct SLL
     // xóa node vị trí i
     void removeMid(int i)
     {
+        if (i < 0)
+            return;
         if (head == NULL)
             return;
         if (head->next == NULL)
@@ -138,7 +144,7 @@ struct SLL
             {
                 r = p;
                 p = p->next;
-                if (p->next == NULL)
+                if (p == NULL)
                     return;
             }
             r->next = p->next;
@@ -170,7 +176,7 @@ int main()
     a.addFirst(1);
     a.addLast(2);
     a.addMid(1, 3);
-    cout << a.GetNode(2) << " ";
+    cout << a.GetNode(2) << endl;
     a.BrowseFw();
     a.removeMid(2);
     a.removeFirst();
