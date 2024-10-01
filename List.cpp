@@ -11,7 +11,7 @@ struct List
     // truy cập phần tử k
     int GetNode(int k)
     {
-        if (k > count)
+        if (k > count || k < 0)
             return -1;
         return arr[k];
     } // độ phức tạp: O(1)
@@ -48,6 +48,8 @@ struct List
     // Chèn phần tử vào vị trí bất kì
     void addMid(int i, int k)
     {
+        if (i > count || i < 0)
+            return;
         if (count == 0)
         {
             count++;
@@ -91,7 +93,7 @@ struct List
     // Xóa vị trí i
     int eraseMid(int i)
     {
-        if (i > count || count == 0)
+        if (i > count || count < 0)
             return -1;
         int res = arr[i - 1];
         for (int j = i - 1; i < count - 1; i++)
