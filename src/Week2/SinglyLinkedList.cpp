@@ -160,7 +160,7 @@ struct SLL
         else
         {
             point r = head;
-            while (r->next != NULL)
+            while (r != NULL)
             {
                 cout << r->data << " ";
                 r = r->next;
@@ -168,6 +168,14 @@ struct SLL
             cout << endl;
         }
     } // độ phức tạp: O(n)
+
+    //duyệt ngược
+    void BrowseRv(point head){
+        point tmp = head;
+        if(tmp == NULL) return;
+        BrowseRv(tmp->next);
+        cout << tmp->data <<" ";
+    }
 };
 
 int main()
@@ -178,6 +186,7 @@ int main()
     a.addMid(1, 3);
     cout << a.GetNode(2) << endl;
     a.BrowseFw();
+    a.BrowseRv(a.head);
     a.removeMid(2);
     a.removeFirst();
     a.removeLast();

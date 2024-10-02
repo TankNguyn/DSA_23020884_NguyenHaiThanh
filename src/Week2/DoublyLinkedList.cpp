@@ -77,9 +77,12 @@ struct DLL
             if (r == NULL)
                 return;
         }
+        if(r->next == NULL) addLast(x);
+        else{
         p->next = r->next;
         p->prev = r;
         r->next = p;
+        }
     } // độ phức tạp: O(n)
 
     // Xóa node ở đầu danh sách
@@ -149,7 +152,7 @@ struct DLL
         if (head == NULL)
             return;
         point p = head;
-        while (p->next != NULL)
+        while (p != NULL)
         {
             cout << p->data << " ";
             p = p->next;
@@ -163,7 +166,7 @@ struct DLL
         if (head == NULL)
             return;
         point p = tail;
-        while (p->prev != NULL)
+        while (p != NULL)
         {
             cout << p->data << " ";
             p = p->prev;
