@@ -12,7 +12,6 @@ void InsertionSort(int a[], int n)
 
         while ((j >= 0) && !ok)
         {
-            cout << i << " " << j << " " << temp <<" "<<ok;
             if (a[j] > temp)
             {
                 a[j + 1] = a[j];
