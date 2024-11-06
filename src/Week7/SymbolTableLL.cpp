@@ -11,7 +11,7 @@ struct Node
     Node(string k, int val) : key(k), value(val), next(NULL) {}
 };
 
-typedef struct Node *point;
+typedef struct Node* point;
 
 struct SymbolTable
 {
