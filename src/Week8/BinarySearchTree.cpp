@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "LLQueue.h"
 
 using namespace std;
 
@@ -85,6 +86,33 @@ private:
             x->left = a->left;
         }
         return x;
+    }
+
+    void inorder(point x, LLQueue y)
+    {
+        if (x == NULL)
+            return;
+        inorder(x->left, y);
+        y.enqueue(x->value);
+        inorder(x->right, y);
+    }
+
+    void preorder(point x, LLQueue y)
+    {
+        if (x == NULL)
+            return;
+        y.enqueue(x->value);
+        preorder(x->left, y);
+        preorder(x->right, y);
+    }
+
+    void postorder(point x, LLQueue y)
+    {
+        if (x == NULL)
+            return;
+        postorder(x->left, y);
+        postorder(x->right, y);
+        y.enqueue(x->value);
     }
 
 public:
