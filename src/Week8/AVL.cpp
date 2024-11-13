@@ -9,29 +9,86 @@ struct Node
     int value;
     Node *left;
     Node *right;
+    int height;
 
-    Node(string k, int val) : key(k), value(val), left(NULL), right(NULL) {};
+    Node(string k, int val) : left(NULL), right(NULL), key(k), value(val), height(1) {};
 };
 
 typedef struct Node *point;
 
-class BST
+class AVL
 {
 private:
     point root;
-
-    // int size(point x){
-    //     if(x == NULL) return 0;
-    //     else return x->count;
-    // }
 
     int CompareTo(string x, string y)
     {
         if (x < y)
             return -1;
-        if (x == y)
+        if (x > y)
+            return 1;
+        return 0;
+    }
+
+    int getHeight(point x)
+    {
+        if (x == NULL)
             return 0;
-        return 1;
+        else
+            return x->height;
+    }
+
+    int getBalance(point x)
+    {
+        if (x == NULL)
+            return 0;
+        else
+            return getHeight(x->left) - getHeight(x->right);
+    }
+
+    point rightRotate(point x)
+    {
+        point y = x->left;
+        point z = y->right;
+        y->right = x;
+        x->left = z;
+        x->height = 1 + max(getHeight(x->left), getHeight(x->right));
+        y->height = 1 + max(getHeight(y->left), getHeight(y->right));
+        return y;
+    }
+
+    point leftRotate(point x)
+    {
+        point y = x->right;
+        point z = y->left;
+        y->left = x;
+        x->right = z;
+        x->height = 1 + max(getHeight(x->left), getHeight(x->right));
+        y->height = 1 + max(getHeight(y->left), getHeight(y->right));
+        return y;
+    }
+
+    point treeBalance(point x, int balance)
+    {
+        // Trái Trái
+        if (balance > 1 && getBalance(x->left) >= 0)
+            return rightRotate(x);
+        // Trái Phải
+        if (balance > 1 && getBalance(x->left) < 0)
+        {
+            x->left = leftRotate(x->left);
+            return rightRotate(x->right);
+        }
+        // Phải Phải
+        if (balance < -1 && getBalance(x->right) <= 0)
+            return leftRotate(x);
+        // Phải Trái
+        if (balance < -1 && getBalance(x->right) > 0)
+        {
+            x->right = rightRotate(x->right);
+            return leftRotate(x);
+        }
+        return x;
     }
 
     point put(point x, string k, int val)
@@ -45,17 +102,39 @@ private:
             x->right = put(x->right, k, val);
         else
             x->value = val;
+        // Cập nhật chỉ số cân bằng của cây
+        x->height = 1 + max(getHeight(x->left), getHeight(x->right));
+        int bal = getBalance(x);
+        /*
+        //Trái Trái
+        if(bal > 1 && getBalance(x->left) >= 0) return rightRotate(x);
+        //Trái Phải
+        if(bal > 1 && getBalance(x->left) < 0){
+            x->left = leftRotate(x->left);
+            return rightRotate(x->right);
+        }
+        //Phải Phải
+        if(bal < -1 && getBalance(x->right) <=0) return leftRotate(x);
+        //Phải Trái
+        if(bal < -1 && getBalance(x->right) > 0){
+            x->right = rightRotate(x->right);
+            return leftRotate(x);
+        }
         return x;
+        */
+        return treeBalance(x, bal);
     }
-    // hàm tìm nút có key nhỏ nhất
+
     point Min(point x)
     {
         point y = x;
         while (y->left != NULL)
+        {
             y = y->left;
+        }
         return y;
     }
-    // hàm xóa nút có key nhỏ nhất
+
     point delMin(point x)
     {
         point y = x;
@@ -70,7 +149,6 @@ private:
         if (x == NULL)
             return NULL;
         int cmp = CompareTo(k, x->key);
-        // tìm key
         if (cmp < 0)
             x->left = del(x->left, k);
         else if (cmp > 0)
@@ -87,7 +165,12 @@ private:
             x->right = delMin(a->right);
             x->left = a->left;
         }
-        return x;
+        if (x == NULL)
+            return NULL;
+        // Cập nhật chỉ số cân bằng của cây
+        x->height = 1 + max(getHeight(x->left), getHeight(x->right));
+        int bal = getBalance(x);
+        return treeBalance(x, bal);
     }
 
     void inorder(point x, LLQueue y)
@@ -118,14 +201,7 @@ private:
     }
 
 public:
-    BST() : root(NULL) {};
-
-    bool isEmpty()
-    {
-        if (root == NULL)
-            return 1;
-        return 0;
-    }
+    AVL() : root(NULL) {};
 
     int get(string k)
     {
@@ -156,7 +232,7 @@ public:
 
 int main()
 {
-    BST a;
+    AVL a;
     a.put("T", 1);
     a.put("h", 2);
     a.put("a", 3);
