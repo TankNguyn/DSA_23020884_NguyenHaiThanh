@@ -1,8 +1,9 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-struct Node{
+struct Node
+{
     string key;
     int value;
 
@@ -11,59 +12,79 @@ struct Node{
 
 typedef Node *point;
 
-class LinearProbling{
+class LinearProbling
+{
 private:
     point lp[10000];
 
-    int HashCode(string k){
+    int HashCode(string k)
+    {
         int s = 0;
-        for(int i=0; i<k.length(); i++){
-            s = s +k[i];
+        for (int i = 0; i < k.length(); i++)
+        {
+            s = s + k[i];
         }
-        return s%100;
+        return s % 100;
     }
 
 public:
-    LinearProbling(){
-        for(int i=0; i<10000; i++){
+    LinearProbling()
+    {
+        for (int i = 0; i < 10000; i++)
+        {
             lp[i] = NULL;
         }
     }
 
-    void put(string k, int val){
+    void put(string k, int val)
+    {
         int tmp = HashCode(k);
-        while(lp[tmp] != NULL){
-            if(lp[tmp]->key == "\0" || lp[tmp]->key==k) break;
-            else tmp++;
+        while (lp[tmp] != NULL)
+        {
+            if (lp[tmp]->key == "\0" || lp[tmp]->key == k)
+                break;
+            else
+                tmp++;
         }
-        if(lp[tmp] == NULL) lp[tmp] = new Node(k,val);
-        else{
-            lp[tmp]->key=k;
-            lp[tmp]->value=val;
+        if (lp[tmp] == NULL)
+            lp[tmp] = new Node(k, val);
+        else
+        {
+            lp[tmp]->key = k;
+            lp[tmp]->value = val;
         }
     }
 
-    int get(string k){
+    int get(string k)
+    {
         int tmp = HashCode(k);
-        while(lp[tmp] != NULL){
-            if(lp[tmp]->key==k) return lp[tmp]->value;
+        while (lp[tmp] != NULL)
+        {
+            if (lp[tmp]->key == k)
+                return lp[tmp]->value;
             tmp++;
         }
         return -1;
     }
 
-    void del(string k){
+    void del(string k)
+    {
         int tmp = HashCode(k);
-        while(lp[tmp] != NULL){
-            if(lp[tmp]->key==k) break;
-            else tmp++;
+        while (lp[tmp] != NULL)
+        {
+            if (lp[tmp]->key == k)
+                break;
+            else
+                tmp++;
         }
-        if(lp[tmp]==NULL) return;
-        lp[tmp]->key="\0";
+        if (lp[tmp] == NULL)
+            return;
+        lp[tmp]->key = "\0";
     }
 };
 
-int main(){
+int main()
+{
     LinearProbling a;
     a.put("Lemon", 5);
     a.put("Banana", 6);
