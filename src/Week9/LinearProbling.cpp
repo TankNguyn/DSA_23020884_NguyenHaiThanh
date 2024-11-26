@@ -44,7 +44,12 @@ public:
             if (lp[tmp]->key == "\0" || lp[tmp]->key == k)
                 break;
             else
-                tmp++;
+            {
+                if (tmp == 99)
+                    tmp = 0;
+                else
+                    tmp++;
+            }
         }
         if (lp[tmp] == NULL)
             lp[tmp] = new Node(k, val);
@@ -62,7 +67,10 @@ public:
         {
             if (lp[tmp]->key == k)
                 return lp[tmp]->value;
-            tmp++;
+            if (tmp == 99)
+                tmp = 0;
+            else
+                tmp++;
         }
         return -1;
     }
@@ -75,7 +83,12 @@ public:
             if (lp[tmp]->key == k)
                 break;
             else
-                tmp++;
+            {
+                if (tmp == 99)
+                    tmp = 0;
+                else
+                    tmp++;
+            }
         }
         if (lp[tmp] == NULL)
             return;
